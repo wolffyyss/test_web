@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Estudiantes - UTN San Francisco</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: #1b1b1b;
+            color: #ffffff;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        header {
+            background: rgba(0, 122, 204, 0.8);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        header img {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            height: 50px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: rgba(0, 91, 153, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+            position: relative;
+            flex: 1 1 auto;
+            text-align: center;
+        }
+
+        nav a:after {
+            content: '';
+            display: block;
+            height: 2px;
+            width: 0;
+            background: white;
+            transition: width 0.3s;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        .container {
+            padding: 20px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .section {
+            display: none;
+            margin-bottom: 40px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .section h2 {
+            color: #007acc;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel img {
+            width: 100%;
+            height: auto;
+        }
+
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Estilos para la galería en la sección de Actividades */
+.gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Espacio entre las imágenes */
+}
+
+.gallery-item {
+    width: 100%;
+    max-width: 600px; /* Ajusta según el diseño deseado */
+    margin: 0 auto; /* Centra los elementos */
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.gallery-item-text {
+    text-align: center;
+    color: #ffffff;
+    margin-top: 10px;
+}
+
+/* Estilo específico para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .gallery-item {
+        width: 90%; /* Ajusta según el diseño deseado */
+    }
+}
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+      
+
+        footer {
+            background-color: rgba(0, 92, 153, 0.986);
+            color: white;
+            padding: 10px 0;
+            width: 100%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            position: relative;
+            flex-wrap: wrap;
+        }
+
+        footer p {
+            margin: 0;
+            flex: 1;
+            text-align: center;
+        }
+
+        footer .social-links {
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        footer .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .footer-image {
+            height: 50px;
+            margin-left: 20px;
+        }
+
+        .back-to-top {
+            margin-right: 20px;
+            padding: 10px 20px;
+            background-color: rgba(0, 91, 153, 0.8);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .back-to-top:hover {
+            background-color: rgba(0, 91, 153, 1);
+        }
+
+        /* Estilo para el logo de FETI en el head */
+        .logo-feti {
+            position: absolute;
+            top: -15px;
+            left: 1199px;
+            height: 150px;
+        }
+
+        /* Estilos para el botón Reservar */
+        .reservar-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #007acc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .reservar-button:hover {
+            background-color: #005f9a;
+        }
+
+        /* ajustes de las imagenes a resoluciones. */
+        @media (max-width: 768px) {
+
+            header img,
+            .logo-feti {
+                display: none;
+            }
+
+            footer {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-image {
+                order: 1;
+                margin-bottom: 10px;
+            }
+
+            .social-links {
+                order: 2;
+            }
+
+            .back-to-top {
+                order: 3;
+                margin: 10px 0 0 0;
+            }
+        }
+
+        .team-member {
+            margin-bottom: 20px;
+        }
+
+        .team-member-role {
+            text-align: center;
+        }
+        .team-member-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+        }
+        .team-member-names {
+    display: flex;
+    justify-content: center;
+       }
+        .team-member-name {
+    margin: 20px;
+       }
+
+        .circle-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .circle-photo img {
+            width: 100%;
+            height: auto;
+        }
+
+        .team-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .circle-photo {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('.section');
+            sections.forEach(function (section) {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        function startCarousel() {
+            const carousel = document.querySelector('.carousel-images');
+            const totalImages = carousel.children.length;
+            let currentIndex = 0;
+
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % totalImages;
+                const offset = -currentIndex * 100;
+                carousel.style.transform = `translateX(${offset}%)`;
+            }, 4000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            showSection('quienes-somos');
+            startCarousel();
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#02c0d9"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        },
+                        "image": {
+                            "src": "img/github.svg",
+                            "width": 100,
+                            "height": 100
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.6155351604731727,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#02c0d9",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 400,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+    <header>
+        <a href="https://sanfrancisco.utn.edu.ar/">
+            <img src="assets/images/logo-utn-frsf.svg" alt="UTN Logo">
+        </a>
+        <h1>Centro de Estudiantes</h1>
+        <img class="logo-feti" src="assets/images/Logo-feti.png" alt="FETI Logo">
+    </header>
+    <nav>
+        <a href="#" onclick="showSection('quienes-somos')">Quiénes Somos</a>
+        <a href="#" onclick="showSection('equipo')">Equipo</a>
+        <a href="#" onclick="showSection('Actividades')">Actividades del Año</a>
+        <a href="#" onclick="showSection('quincho')">Quincho</a>
+    </nav>
+    <div class="container">
+        <div id="quienes-somos" class="section">
+            <h2>Quiénes Somos</h2>
+            <p>algo del cenrtro de Estudiantes</p>
+            <div class="carousel">
+                <div class="carousel-images">
+                    <div class="carousel-item">
+                        <img src="assets/images/Fotos/Centro de estudiantes.jpeg" alt="Imagen 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/imagen2.jpg" alt="Imagen 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/imagen3.jpg" alt="Imagen 3">
+                    </div>
+                </div>
+            </div>
+            <p>algo mas del centro</p>
+        </div>
+        <div id="equipo" class="section">
+            <h2>Equipo</h2>
+            <div class="team-member"></div>
+            <!-- Presidente -->
+            <div class="team-member">
+                <div class="team-member-role">
+                    <p>Presidente</p>
+                    <div class="circle-photo"><img src="assets/images/fotos de perfil/joaquin Libera.jpeg" alt="joaquin Libera"></div>
+
+                </div>
+            </div>
+
+            <!-- Secretaria General -->
+            <div class="team-member">
+                <div class="team-member-role">
+                    <p>Secretaria General</p>
+                    <div class="circle-photo"><img src="assets/images/fotos de perfil/valentina peralta.jpeg" alt="valentina peralta"></div>
+
+                </div>
+            </div>
+
+            <!-- Secretaria de Finanzas -->
+        <div class="team-member">
+            <div class="team-member-role">
+                <p>Secretaria de Finanzas</p>
+                <div class="team-member-info">
+                    <div class="circle-photos">
+                        <div class="circle-photo">
+                            <img src="assets/images/fotos de perfil/nicolas baldo.jpeg" alt="nicolas baldo">
+                        </div>
+                        <div class="circle-photo">
+                            <img src="secretaria_finanzas2.jpg" alt="lucia araya">
+                        </div>
+                    </div>
+                    <div class="team-member-names">
+                        <p class="team-member-name">Nicolás Baldo</p>
+                        <p class="team-member-name">Lucía Araya</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Secretaria de Deporte y Recreación -->
+        <div class="team-member">
+            <div class="team-member-role">
+                <p>Secretaria de Deporte y Recreación</p>
+                <div class="team-member-info">
+                    <div class="circle-photos">
+                        <div class="circle-photo">
+                            <img src="secretaria_deporte1.jpg"alt="yair bertorello">
+                        </div>
+                        <div class="circle-photo">
+                            <img src="secretaria_deporte2.jpg" alt="mauro avalos">
+                        </div>
+                    </div>
+                    <div class="team-member-names">
+                        <p class="team-member-name">yair bertorello</p>
+                        <p class="team-member-name">mauro avalos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- secretaria de prensa y difusion  -->
+        <div class="team-member">
+            <div class="team-member-role">
+                <p>Secretaria de prensa y difusion</p>
+                <div class="team-member-info">
+                    <div class="circle-photos">
+                        <div class="circle-photo">
+                            <img src="Secretaria de prensa y difusion.jpg" alt="paulina bartolomeo">
+                        </div>
+                        <div class="circle-photo">
+                            <img src="Secretaria de prensa y difusion.jpg" alt="mariano zarate">
+                        </div>
+                    </div>
+                    <div class="team-member-names">
+                        <p class="team-member-name">paulina bartolomeo</p>
+                        <p class="team-member-name">mariano zarate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- secretaria de enseñanza y apuntes -->
+        <div class="team-member">
+            <div class="team-member-role">
+                <p>secretaria de enseñanza y apuntes</p>
+                <div class="team-member-info">
+                    <div class="circle-photos">
+                        <div class="circle-photo">
+                            <img src="secretaria de enseñanza y apuntes.jpg" alt="joaquin vercellone">
+                        </div>
+                        <div class="circle-photo">
+                            <img src="secretaria de enseñanza y apuntes.jpg" alt="romina wasinger">
+                        </div>
+                    </div>
+                    <div class="team-member-names">
+                        <p class="team-member-name">joaquin vercellone</p>
+                        <p class="team-member-name">romina wasinger</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- secretaria de equidad de genero y DDHH -->
+        <div class="team-member">
+            <div class="team-member-role">
+                <p>secretaria de equidad de genero y DDHH</p>
+                <div class="team-member-info">
+                    <div class="circle-photos">
+                        <div class="circle-photo">
+                            <img src="secretaria de equidad de genero y DDHH.jpg" alt="lucila contreras">
+                        </div>
+                        <div class="circle-photo">
+                            <img src="secretaria de equidad de genero y DDHH.jpg" alt="carolina borgeat">
+                        </div>
+                    </div>
+                    <div class="team-member-names">
+                        <p class="team-member-name">lucila contreras</p>
+                        <p class="team-member-name">carolina borgeat</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- secretaria de soporte tecnico  -->
+        <div class="team-member">
+            <div class="team-member-role">
+                <p>secretaria de soporte tecnico</p>
+                <div class="team-member-info">
+                    <div class="circle-photos">
+                        <div class="circle-photo">
+                            <img src="secretaria de soporte tecnico.jpg" alt="emiliano agostini">
+                        </div>
+                        <div class="circle-photo">
+                            <img src="secretaria de soporte tecnico.jpg" alt="fredy angeles">
+                        </div>
+                    </div>
+                    <div class="team-member-names">
+                        <p class="team-member-name">emiliano agostini</p>
+                        <p class="team-member-name">fredy angeles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- secretaria secretaria de organizaciones  -->
+        <div class="team-member">
+            <div class="team-member-role">
+                <p>secretaria secretaria de organizaciones</p>
+                <div class="team-member-info">
+                    <div class="circle-photos">
+                        <div class="circle-photo">
+                            <img src="secretaria secretaria de organizaciones.jpg"
+                            alt="santiago parucci">
+                        </div>
+                        <div class="circle-photo">
+                            <img src="secretaria secretaria de organizaciones.jpg"
+                            alt="lucas ringelstein">
+                        </div>
+                    </div>
+                    <div class="team-member-names">
+                        <p class="team-member-name">santiago parucci</p>
+                        <p class="team-member-name">flucas ringelstein</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+           <!-- secretaria gremial -->
+        <div class="team-member">
+            <div class="team-member-role">
+                <p>secretaria gremial</p>
+                <div class="team-member-info">
+                    <div class="circle-photos">
+                        <div class="circle-photo">
+                            <img src="secretaria gremial.jpg" alt="luis garcia">
+                        </div>
+                        <div class="circle-photo">
+                            <img src="secretaria gremial.jpg" alt="agustin cortesse">
+                        </div>
+                    </div>
+                    <div class="team-member-names">
+                        <p class="team-member-name">luis garcia</p>
+                        <p class="team-member-name">agustin cortesse</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+           <!-- secretaria de bienestar estudiantil -->
+        <div class="team-member">
+            <div class="team-member-role">
+                <p>secretaria de bienestar estudiantil</p>
+                <div class="team-member-info">
+                    <div class="circle-photos">
+                        <div class="circle-photo">
+                            <img src="secretaria de bienestar estudiantil.jpg" alt="pedro saldarini">
+                        </div>
+                        <div class="circle-photo">
+                            <img src="secretaria de bienestar estudiantil.jpg" alt="julieta villacorta">
+                        </div>
+                    </div>
+                    <div class="team-member-names">
+                        <p class="team-member-name">pedro saldarini</p>
+                        <p class="team-member-name">julieta villacorta</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+             <!-- secretaria de extension universitaria -->
+        <div class="team-member">
+            <div class="team-member-role">
+                <p>secretaria de extension universitaria</p>
+                <div class="team-member-info">
+                    <div class="circle-photos">
+                        <div class="circle-photo">
+                            <img src="secretaria de extension universitaria.jpg" alt="santiago olmos">
+                        </div>
+                        <div class="circle-photo">
+                            <img src="secretaria de extension universitaria.jpg" alt="micaela alvarez">
+                        </div>
+                    </div>
+                    <div class="team-member-names">
+                        <p class="team-member-name">santiago olmos</p>
+                        <p class="team-member-name">micaela alvarez</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+             <!-- secretaria de cultura  -->
+        <div class="team-member">
+            <div class="team-member-role">
+                <p>secretaria de cultura</p>
+                <div class="team-member-info">
+                    <div class="circle-photos">
+                        <div class="circle-photo">
+                            <img src="secretaria de cultura.jpg" alt="victor orellano">
+                        </div>
+                        <div class="circle-photo">
+                            <img src="secretaria de cultura.jpg" alt="pilar silvestro">
+                        </div>
+                    </div>
+                    <div class="team-member-names">
+                        <p class="team-member-name">victor orellano</p>
+                        <p class="team-member-name">pilar silvestro</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Representantes del FUT -->
+        <div class="team-member">
+            <div class="team-member-role">
+                <p>Representantes del FUT</p>
+                <div class="team-member-info">
+                    <div class="circle-photos">
+                        <div class="circle-photo">
+                            <img src="assets/images/fotos de perfil/gonzalo nazzeta.jpeg" alt="gonzalo nazzeta">
+                        </div>
+                        <div class="circle-photo">
+                            <img src="Representantes del FUT.jpg" alt="gian linguetti">
+                        </div>
+                        <div class="circle-photo">
+                            <img src="Representantes del FUT.jpg" alt="felipe aimar">
+                        </div>
+                        <div class="circle-photo">
+                            <img src="assets/images/fotos de perfil/mateo marquez.jpeg" alt="mateo marquez">
+                        </div>
+                    </div>
+                    <div class="team-member-names">
+                        <p class="team-member-name">gonzalo nazzeta</p>
+                        <p class="team-member-name">gian linguetti</p>
+                        <p class="team-member-name">felipe aimar</p>
+                        <p class="team-member-name">mateo marquez</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div id="Actividades" class="section">
+            <h2>Actividades del Año</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="assets/images/logo-utn.jpg" alt="Propuesta 1">
+                    <p class="gallery-item-text">Descripción de la Propuesta 1</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/gf-1-292786.jpg" alt="Propuesta 2">
+                    <p class="gallery-item-text">Descripción de la Propuesta 2</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/utn.jpeg" alt="Propuesta 3">
+                    <p class="gallery-item-text">Descripción de la Propuesta 3</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="quincho" class="section">
+            <h2>Quincho</h2>
+            <p>Descripción del quincho.</p>
+            <!--API de baldo con mensaje-->
+            <a href="https://api.whatsapp.com/send?phone=5493562514353&text=Hola, me gustaría reservar el quincho para el día ... "
+                class="reservar-button">Reservar</a>
+        </div>
+    </div>
+    <footer><a href="https://sanfrancisco.utn.edu.ar/">
+            <img src="assets/images/logo-utn-frsf.svg" alt="UTN Logo" class="footer-image">
+        </a>
+        <p>CEUT-UTN SFCO</p>
+        <div class="social-links">
+
+            <a href="https://www.instagram.com/ceutsfco/?hl=es" target="_blank" title="Instagram"><i
+                    class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/CEUTSFCO" target="_blank" title="Facebook"><i
+                    class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com/CEUTSFCO" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="mailto:tomas.alberto.lobos123@gmail.com" target="_blank" title="Gmail"><i
+                    class="fas fa-envelope"></i></a>
+        </div>
+        <a href="#" class="back-to-top">Volver Arriba</a>
+    </footer>
+</body>
+
+</html>
